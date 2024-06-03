@@ -62,9 +62,9 @@ Include screenshots of your app to showcase its UI and features. Make sure to up
 
 ## Screenshots
 
-![Screenshot 1](images/i1.png)
-![Screenshot 2](images/i2.png)
-![Screenshot 3](images/i3.png)
+![Screenshot 1](images/r1.jpg)
+![Screenshot 2](images/r2.jpg)
+![Screenshot 3](images/r3.jpg)
 
 
 ### 5. Contributing
