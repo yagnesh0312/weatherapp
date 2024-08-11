@@ -21,7 +21,7 @@ class DayComponent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "${DateFormat('E').format(data.time)}",
+            "${DateFormat('E').format(data.time!)}",
             style: TextStyle(color: fontColor, fontSize: 30),
           ),
           SizedBox(height: 10),
@@ -30,7 +30,7 @@ class DayComponent extends StatelessWidget {
             style: TextStyle(color: fontColor.withOpacity(0.6), fontSize: 10),
           ),
           Text(
-            "${data.values.temperatureAvg?.toStringAsFixed(0)}°",
+            "${data.values!.temperatureAvg!.toStringAsFixed(0)}°",
             style: TextStyle(color: fontColor, fontSize: 30),
           ),
           SizedBox(height: 10),
@@ -39,7 +39,7 @@ class DayComponent extends StatelessWidget {
             style: TextStyle(color: fontColor.withOpacity(0.6), fontSize: 10),
           ),
           Text(
-            "${data.values.humidityAvg?.toStringAsFixed(0)}",
+            "${data.values!.humidityAvg!.toStringAsFixed(0)}",
             style: TextStyle(color: fontColor, fontSize: 30),
           ),
           SizedBox(height: 10),
@@ -48,7 +48,7 @@ class DayComponent extends StatelessWidget {
             style: TextStyle(color: fontColor.withOpacity(0.6), fontSize: 10),
           ),
           Text(
-            "${data.values.windGustAvg?.toStringAsFixed(0)} kms",
+            "${data.values!.windGustAvg!.toStringAsFixed(0)} kms",
             style: TextStyle(color: fontColor, fontSize: 30),
           ),
           SizedBox(height: 10),

@@ -44,7 +44,7 @@ class HumidityInfo extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "${current.values["humidity"]}",
+                  "${current.values!["humidity"]}",
                   style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,

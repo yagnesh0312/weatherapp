@@ -83,7 +83,7 @@ class CurrentInfo extends StatelessWidget {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: current.values['temperature'].toString(),
+                          text: current.values!['temperature'].toString(),
                           style: TextStyle(
                               fontSize: 120,
                               fontWeight: FontWeight.normal,
@@ -105,7 +105,7 @@ class CurrentInfo extends StatelessWidget {
                   ),
                   Text(
                     controller.weatherCode["weatherCode"]
-                        [current.values['weatherCode']!.toStringAsFixed(0)],
+                        [current.values!['weatherCode']!.toStringAsFixed(0)],
                     style: TextStyle(
                         fontSize: 30, color: fontcolor.withOpacity(0.5)),
                   )

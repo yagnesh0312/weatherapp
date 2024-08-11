@@ -44,7 +44,7 @@ class WindSpeedInfo extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  "${current.values["windSpeed"]}",
+                  "${current.values!["windSpeed"]}",
                   style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,

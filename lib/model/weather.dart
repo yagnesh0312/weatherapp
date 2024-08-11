@@ -9,303 +9,293 @@ Weather weatherFromJson(String str) => Weather.fromJson(json.decode(str));
 String weatherToJson(Weather data) => json.encode(data.toJson());
 
 class Weather {
-  Timelines timelines;
-  Location location;
+    Timelines? timelines;
+    Location? location;
 
-  Weather({
-    required this.timelines,
-    required this.location,
-  });
+    Weather({
+        this.timelines,
+        this.location,
+    });
 
-  factory Weather.fromJson(Map<String, dynamic> json) => Weather(
-        timelines: Timelines.fromJson(json["timelines"]),
-        location: Location.fromJson(json["location"]),
-      );
+    factory Weather.fromJson(Map<String, dynamic> json) => Weather(
+        timelines: json["timelines"] == null ? null : Timelines.fromJson(json["timelines"]),
+        location: json["location"] == null ? null : Location.fromJson(json["location"]),
+    );
 
-  Map<String, dynamic> toJson() => {
-        "timelines": timelines.toJson(),
-        "location": location.toJson(),
-      };
+    Map<String, dynamic> toJson() => {
+        "timelines": timelines?.toJson(),
+        "location": location?.toJson(),
+    };
 }
 
 class Location {
-  double? lat;
-  double? lon;
+    double? lat;
+    double? lon;
 
-  Location({
-    required this.lat,
-    required this.lon,
-  });
+    Location({
+        this.lat,
+        this.lon,
+    });
 
-  factory Location.fromJson(Map<String, dynamic> json) => Location(
+    factory Location.fromJson(Map<String, dynamic> json) => Location(
         lat: json["lat"]?.toDouble(),
         lon: json["lon"]?.toDouble(),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "lat": lat,
         "lon": lon,
-      };
+    };
 }
 
 class Timelines {
-  List<Hourly> minutely;
-  List<Hourly> hourly;
-  List<Daily> daily;
+    List<dynamic>? minutely;
+    List<dynamic>? hourly;
+    List<dynamic>? daily;
 
-  Timelines({
-    required this.minutely,
-    required this.hourly,
-    required this.daily,
-  });
+    Timelines({
+        this.minutely,
+        this.hourly,
+        this.daily,
+    });
 
-  factory Timelines.fromJson(Map<String, dynamic> json) => Timelines(
-        minutely:
-            List<Hourly>.from(json["minutely"].map((x) => Hourly.fromJson(x))),
-        hourly:
-            List<Hourly>.from(json["hourly"].map((x) => Hourly.fromJson(x))),
-        daily: List<Daily>.from(json["daily"].map((x) => Daily.fromJson(x))),
-      );
+    factory Timelines.fromJson(Map<String, dynamic> json) => Timelines(
+        minutely: json["minutely"] == null ? [] : List<Minutely>.from(json["minutely"]!.map((x) => Minutely.fromJson(x))),
+        hourly: json["hourly"] == null ? [] : List<Hourly>.from(json["hourly"]!.map((x) => Hourly.fromJson(x))),
+        daily: json["daily"] == null ? [] : List<Daily>.from(json["daily"]!.map((x) => Daily.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
-        "minutely": List<dynamic>.from(minutely.map((x) => x.toJson())),
-        "hourly": List<dynamic>.from(hourly.map((x) => x.toJson())),
-        "daily": List<dynamic>.from(daily.map((x) => x.toJson())),
-      };
+    Map<String, dynamic> toJson() => {
+        "minutely": minutely == null ? [] : List<dynamic>.from(minutely!.map((x) => x.toJson())),
+        "hourly": hourly == null ? [] : List<dynamic>.from(hourly!.map((x) => x.toJson())),
+        "daily": daily == null ? [] : List<dynamic>.from(daily!.map((x) => x.toJson())),
+    };
 }
 
 class Daily {
-  DateTime time;
-  Values values;
+    DateTime? time;
+    Values? values;
 
-  Daily({
-    required this.time,
-    required this.values,
-  });
+    Daily({
+        this.time,
+        this.values,
+    });
 
-  factory Daily.fromJson(Map<String, dynamic> json) => Daily(
-        time: DateTime.parse(json["time"]),
-        values: Values.fromJson(json["values"]),
-      );
+    factory Daily.fromJson(Map<String, dynamic> json) => Daily(
+        time: json["time"] == null ? null : DateTime.parse(json["time"]),
+        values: json["values"] == null ? null : Values.fromJson(json["values"]),
+    );
 
-  Map<String, dynamic> toJson() => {
-        "time": time.toIso8601String(),
-        "values": values.toJson(),
-      };
+    Map<String, dynamic> toJson() => {
+        "time": time?.toIso8601String(),
+        "values": values?.toJson(),
+    };
 }
 
 class Values {
-  double? cloudBaseAvg;
-  double? cloudBaseMax;
-  double? cloudBaseMin;
-  double? cloudCeilingAvg;
-  double? cloudCeilingMax;
-  int? cloudCeilingMin;
-  double? cloudCoverAvg;
-  double? cloudCoverMax;
-  double? cloudCoverMin;
-  double? dewPointAvg;
-  double? dewPointMax;
-  double? dewPointMin;
-  double? evapotranspirationAvg;
-  double? evapotranspirationMax;
-  double? evapotranspirationMin;
-  double? evapotranspirationSum;
-  int? freezingRainIntensityAvg;
-  int? freezingRainIntensityMax;
-  int? freezingRainIntensityMin;
-  double? humidityAvg;
-  double? humidityMax;
-  double? humidityMin;
-  int? iceAccumulationAvg;
-  int? iceAccumulationLweAvg;
-  int? iceAccumulationLweMax;
-  int? iceAccumulationLweMin;
-  int? iceAccumulationLweSum;
-  int? iceAccumulationMax;
-  int? iceAccumulationMin;
-  int? iceAccumulationSum;
-  DateTime? moonriseTime;
-  DateTime? moonsetTime;
-  double? precipitationProbabilityAvg;
-  int? precipitationProbabilityMax;
-  int? precipitationProbabilityMin;
-  double? pressureSurfaceLevelAvg;
-  double? pressureSurfaceLevelMax;
-  double? pressureSurfaceLevelMin;
-  double? rainAccumulationAvg;
-  double? rainAccumulationLweAvg;
-  double? rainAccumulationLweMax;
-  int? rainAccumulationLweMin;
-  double? rainAccumulationMax;
-  int? rainAccumulationMin;
-  double? rainAccumulationSum;
-  double? rainIntensityAvg;
-  double? rainIntensityMax;
-  double? rainIntensityMin;
-  int? sleetAccumulationAvg;
-  int? sleetAccumulationLweAvg;
-  int? sleetAccumulationLweMax;
-  int? sleetAccumulationLweMin;
-  int? sleetAccumulationLweSum;
-  int? sleetAccumulationMax;
-  int? sleetAccumulationMin;
-  int? sleetIntensityAvg;
-  int? sleetIntensityMax;
-  int? sleetIntensityMin;
-  int? snowAccumulationAvg;
-  int? snowAccumulationLweAvg;
-  int? snowAccumulationLweMax;
-  int? snowAccumulationLweMin;
-  int? snowAccumulationLweSum;
-  int? snowAccumulationMax;
-  int? snowAccumulationMin;
-  int? snowAccumulationSum;
-  int? snowDepthAvg;
-  int? snowDepthMax;
-  int? snowDepthMin;
-  int? snowDepthSum;
-  int? snowIntensityAvg;
-  int? snowIntensityMax;
-  int? snowIntensityMin;
-  DateTime? sunriseTime;
-  DateTime? sunsetTime;
-  double? temperatureApparentAvg;
-  double? temperatureApparentMax;
-  double? temperatureApparentMin;
-  double? temperatureAvg;
-  double? temperatureMax;
-  double? temperatureMin;
-  int? uvHealthConcernAvg;
-  int? uvHealthConcernMax;
-  int? uvHealthConcernMin;
-  int? uvIndexAvg;
-  int? uvIndexMax;
-  int? uvIndexMin;
-  double? visibilityAvg;
-  double? visibilityMax;
-  double? visibilityMin;
-  int? weatherCodeMax;
-  int? weatherCodeMin;
-  double? windDirectionAvg;
-  double? windGustAvg;
-  double? windGustMax;
-  double? windGustMin;
-  double? windSpeedAvg;
-  double? windSpeedMax;
-  double? windSpeedMin;
+    double? cloudBaseAvg;
+    double? cloudBaseMax;
+    double? cloudBaseMin;
+    double? cloudCeilingAvg;
+    double? cloudCeilingMax;
+    double? cloudCeilingMin;
+    double? cloudCoverAvg;
+    int? cloudCoverMax;
+    double? cloudCoverMin;
+    double? dewPointAvg;
+    double? dewPointMax;
+    double? dewPointMin;
+    double? evapotranspirationAvg;
+    double? evapotranspirationMax;
+    double? evapotranspirationMin;
+    double? evapotranspirationSum;
+    int? freezingRainIntensityAvg;
+    int? freezingRainIntensityMax;
+    int? freezingRainIntensityMin;
+    double? humidityAvg;
+    double? humidityMax;
+    double? humidityMin;
+    int? iceAccumulationAvg;
+    int? iceAccumulationLweAvg;
+    int? iceAccumulationLweMax;
+    int? iceAccumulationLweMin;
+    int? iceAccumulationLweSum;
+    int? iceAccumulationMax;
+    int? iceAccumulationMin;
+    int? iceAccumulationSum;
+    DateTime? moonriseTime;
+    DateTime? moonsetTime;
+    double? precipitationProbabilityAvg;
+    int? precipitationProbabilityMax;
+    int? precipitationProbabilityMin;
+    double? pressureSurfaceLevelAvg;
+    double? pressureSurfaceLevelMax;
+    double? pressureSurfaceLevelMin;
+    double? rainAccumulationAvg;
+    double? rainAccumulationLweAvg;
+    double? rainAccumulationLweMax;
+    int? rainAccumulationLweMin;
+    double? rainAccumulationMax;
+    int? rainAccumulationMin;
+    double? rainAccumulationSum;
+    double? rainIntensityAvg;
+    double? rainIntensityMax;
+    int? rainIntensityMin;
+    int? sleetAccumulationAvg;
+    int? sleetAccumulationLweAvg;
+    int? sleetAccumulationLweMax;
+    int? sleetAccumulationLweMin;
+    int? sleetAccumulationLweSum;
+    int? sleetAccumulationMax;
+    int? sleetAccumulationMin;
+    int? sleetIntensityAvg;
+    int? sleetIntensityMax;
+    int? sleetIntensityMin;
+    int? snowAccumulationAvg;
+    int? snowAccumulationLweAvg;
+    int? snowAccumulationLweMax;
+    int? snowAccumulationLweMin;
+    int? snowAccumulationLweSum;
+    int? snowAccumulationMax;
+    int? snowAccumulationMin;
+    int? snowAccumulationSum;
+    int? snowIntensityAvg;
+    int? snowIntensityMax;
+    int? snowIntensityMin;
+    DateTime? sunriseTime;
+    DateTime? sunsetTime;
+    double? temperatureApparentAvg;
+    double? temperatureApparentMax;
+    double? temperatureApparentMin;
+    double? temperatureAvg;
+    double? temperatureMax;
+    double? temperatureMin;
+    int? uvHealthConcernAvg;
+    int? uvHealthConcernMax;
+    int? uvHealthConcernMin;
+    int? uvIndexAvg;
+    int? uvIndexMax;
+    int? uvIndexMin;
+    double? visibilityAvg;
+    double? visibilityMax;
+    double? visibilityMin;
+    int? weatherCodeMax;
+    int? weatherCodeMin;
+    double? windDirectionAvg;
+    double? windGustAvg;
+    double? windGustMax;
+    double? windGustMin;
+    double? windSpeedAvg;
+    double? windSpeedMax;
+    double? windSpeedMin;
 
-  Values({
-    required this.cloudBaseAvg,
-    required this.cloudBaseMax,
-    required this.cloudBaseMin,
-    required this.cloudCeilingAvg,
-    required this.cloudCeilingMax,
-    required this.cloudCeilingMin,
-    required this.cloudCoverAvg,
-    required this.cloudCoverMax,
-    required this.cloudCoverMin,
-    required this.dewPointAvg,
-    required this.dewPointMax,
-    required this.dewPointMin,
-    required this.evapotranspirationAvg,
-    required this.evapotranspirationMax,
-    required this.evapotranspirationMin,
-    required this.evapotranspirationSum,
-    required this.freezingRainIntensityAvg,
-    required this.freezingRainIntensityMax,
-    required this.freezingRainIntensityMin,
-    required this.humidityAvg,
-    required this.humidityMax,
-    required this.humidityMin,
-    required this.iceAccumulationAvg,
-    required this.iceAccumulationLweAvg,
-    required this.iceAccumulationLweMax,
-    required this.iceAccumulationLweMin,
-    required this.iceAccumulationLweSum,
-    required this.iceAccumulationMax,
-    required this.iceAccumulationMin,
-    required this.iceAccumulationSum,
-    required this.moonriseTime,
-    required this.moonsetTime,
-    required this.precipitationProbabilityAvg,
-    required this.precipitationProbabilityMax,
-    required this.precipitationProbabilityMin,
-    required this.pressureSurfaceLevelAvg,
-    required this.pressureSurfaceLevelMax,
-    required this.pressureSurfaceLevelMin,
-    required this.rainAccumulationAvg,
-    required this.rainAccumulationLweAvg,
-    required this.rainAccumulationLweMax,
-    required this.rainAccumulationLweMin,
-    required this.rainAccumulationMax,
-    required this.rainAccumulationMin,
-    required this.rainAccumulationSum,
-    required this.rainIntensityAvg,
-    required this.rainIntensityMax,
-    required this.rainIntensityMin,
-    required this.sleetAccumulationAvg,
-    required this.sleetAccumulationLweAvg,
-    required this.sleetAccumulationLweMax,
-    required this.sleetAccumulationLweMin,
-    required this.sleetAccumulationLweSum,
-    required this.sleetAccumulationMax,
-    required this.sleetAccumulationMin,
-    required this.sleetIntensityAvg,
-    required this.sleetIntensityMax,
-    required this.sleetIntensityMin,
-    required this.snowAccumulationAvg,
-    required this.snowAccumulationLweAvg,
-    required this.snowAccumulationLweMax,
-    required this.snowAccumulationLweMin,
-    required this.snowAccumulationLweSum,
-    required this.snowAccumulationMax,
-    required this.snowAccumulationMin,
-    required this.snowAccumulationSum,
-    this.snowDepthAvg,
-    this.snowDepthMax,
-    this.snowDepthMin,
-    this.snowDepthSum,
-    required this.snowIntensityAvg,
-    required this.snowIntensityMax,
-    required this.snowIntensityMin,
-    required this.sunriseTime,
-    required this.sunsetTime,
-    required this.temperatureApparentAvg,
-    required this.temperatureApparentMax,
-    required this.temperatureApparentMin,
-    required this.temperatureAvg,
-    required this.temperatureMax,
-    required this.temperatureMin,
-    required this.uvHealthConcernAvg,
-    required this.uvHealthConcernMax,
-    required this.uvHealthConcernMin,
-    required this.uvIndexAvg,
-    required this.uvIndexMax,
-    required this.uvIndexMin,
-    required this.visibilityAvg,
-    required this.visibilityMax,
-    required this.visibilityMin,
-    required this.weatherCodeMax,
-    required this.weatherCodeMin,
-    required this.windDirectionAvg,
-    required this.windGustAvg,
-    required this.windGustMax,
-    required this.windGustMin,
-    required this.windSpeedAvg,
-    required this.windSpeedMax,
-    required this.windSpeedMin,
-  });
+    Values({
+        this.cloudBaseAvg,
+        this.cloudBaseMax,
+        this.cloudBaseMin,
+        this.cloudCeilingAvg,
+        this.cloudCeilingMax,
+        this.cloudCeilingMin,
+        this.cloudCoverAvg,
+        this.cloudCoverMax,
+        this.cloudCoverMin,
+        this.dewPointAvg,
+        this.dewPointMax,
+        this.dewPointMin,
+        this.evapotranspirationAvg,
+        this.evapotranspirationMax,
+        this.evapotranspirationMin,
+        this.evapotranspirationSum,
+        this.freezingRainIntensityAvg,
+        this.freezingRainIntensityMax,
+        this.freezingRainIntensityMin,
+        this.humidityAvg,
+        this.humidityMax,
+        this.humidityMin,
+        this.iceAccumulationAvg,
+        this.iceAccumulationLweAvg,
+        this.iceAccumulationLweMax,
+        this.iceAccumulationLweMin,
+        this.iceAccumulationLweSum,
+        this.iceAccumulationMax,
+        this.iceAccumulationMin,
+        this.iceAccumulationSum,
+        this.moonriseTime,
+        this.moonsetTime,
+        this.precipitationProbabilityAvg,
+        this.precipitationProbabilityMax,
+        this.precipitationProbabilityMin,
+        this.pressureSurfaceLevelAvg,
+        this.pressureSurfaceLevelMax,
+        this.pressureSurfaceLevelMin,
+        this.rainAccumulationAvg,
+        this.rainAccumulationLweAvg,
+        this.rainAccumulationLweMax,
+        this.rainAccumulationLweMin,
+        this.rainAccumulationMax,
+        this.rainAccumulationMin,
+        this.rainAccumulationSum,
+        this.rainIntensityAvg,
+        this.rainIntensityMax,
+        this.rainIntensityMin,
+        this.sleetAccumulationAvg,
+        this.sleetAccumulationLweAvg,
+        this.sleetAccumulationLweMax,
+        this.sleetAccumulationLweMin,
+        this.sleetAccumulationLweSum,
+        this.sleetAccumulationMax,
+        this.sleetAccumulationMin,
+        this.sleetIntensityAvg,
+        this.sleetIntensityMax,
+        this.sleetIntensityMin,
+        this.snowAccumulationAvg,
+        this.snowAccumulationLweAvg,
+        this.snowAccumulationLweMax,
+        this.snowAccumulationLweMin,
+        this.snowAccumulationLweSum,
+        this.snowAccumulationMax,
+        this.snowAccumulationMin,
+        this.snowAccumulationSum,
+        this.snowIntensityAvg,
+        this.snowIntensityMax,
+        this.snowIntensityMin,
+        this.sunriseTime,
+        this.sunsetTime,
+        this.temperatureApparentAvg,
+        this.temperatureApparentMax,
+        this.temperatureApparentMin,
+        this.temperatureAvg,
+        this.temperatureMax,
+        this.temperatureMin,
+        this.uvHealthConcernAvg,
+        this.uvHealthConcernMax,
+        this.uvHealthConcernMin,
+        this.uvIndexAvg,
+        this.uvIndexMax,
+        this.uvIndexMin,
+        this.visibilityAvg,
+        this.visibilityMax,
+        this.visibilityMin,
+        this.weatherCodeMax,
+        this.weatherCodeMin,
+        this.windDirectionAvg,
+        this.windGustAvg,
+        this.windGustMax,
+        this.windGustMin,
+        this.windSpeedAvg,
+        this.windSpeedMax,
+        this.windSpeedMin,
+    });
 
-  factory Values.fromJson(Map<String, dynamic> json) => Values(
+    factory Values.fromJson(Map<String, dynamic> json) => Values(
         cloudBaseAvg: json["cloudBaseAvg"]?.toDouble(),
         cloudBaseMax: json["cloudBaseMax"]?.toDouble(),
         cloudBaseMin: json["cloudBaseMin"]?.toDouble(),
         cloudCeilingAvg: json["cloudCeilingAvg"]?.toDouble(),
         cloudCeilingMax: json["cloudCeilingMax"]?.toDouble(),
-        cloudCeilingMin: json["cloudCeilingMin"],
+        cloudCeilingMin: json["cloudCeilingMin"]?.toDouble(),
         cloudCoverAvg: json["cloudCoverAvg"]?.toDouble(),
-        cloudCoverMax: json["cloudCoverMax"]?.toDouble(),
+        cloudCoverMax: json["cloudCoverMax"],
         cloudCoverMin: json["cloudCoverMin"]?.toDouble(),
         dewPointAvg: json["dewPointAvg"]?.toDouble(),
         dewPointMax: json["dewPointMax"]?.toDouble(),
@@ -328,14 +318,9 @@ class Values {
         iceAccumulationMax: json["iceAccumulationMax"],
         iceAccumulationMin: json["iceAccumulationMin"],
         iceAccumulationSum: json["iceAccumulationSum"],
-        moonriseTime: json["moonriseTime"] == null
-            ? null
-            : DateTime.parse(json["moonriseTime"]),
-        moonsetTime: json["moonsetTime"] == null
-            ? null
-            : DateTime.parse(json["moonsetTime"]),
-        precipitationProbabilityAvg:
-            json["precipitationProbabilityAvg"]?.toDouble(),
+        moonriseTime: json["moonriseTime"] == null ? null : DateTime.parse(json["moonriseTime"]),
+        moonsetTime: json["moonsetTime"] == null ? null : DateTime.parse(json["moonsetTime"]),
+        precipitationProbabilityAvg: json["precipitationProbabilityAvg"]?.toDouble(),
         precipitationProbabilityMax: json["precipitationProbabilityMax"],
         precipitationProbabilityMin: json["precipitationProbabilityMin"],
         pressureSurfaceLevelAvg: json["pressureSurfaceLevelAvg"]?.toDouble(),
@@ -350,7 +335,7 @@ class Values {
         rainAccumulationSum: json["rainAccumulationSum"]?.toDouble(),
         rainIntensityAvg: json["rainIntensityAvg"]?.toDouble(),
         rainIntensityMax: json["rainIntensityMax"]?.toDouble(),
-        rainIntensityMin: json["rainIntensityMin"]?.toDouble(),
+        rainIntensityMin: json["rainIntensityMin"],
         sleetAccumulationAvg: json["sleetAccumulationAvg"],
         sleetAccumulationLweAvg: json["sleetAccumulationLweAvg"],
         sleetAccumulationLweMax: json["sleetAccumulationLweMax"],
@@ -369,15 +354,11 @@ class Values {
         snowAccumulationMax: json["snowAccumulationMax"],
         snowAccumulationMin: json["snowAccumulationMin"],
         snowAccumulationSum: json["snowAccumulationSum"],
-        snowDepthAvg: json["snowDepthAvg"],
-        snowDepthMax: json["snowDepthMax"],
-        snowDepthMin: json["snowDepthMin"],
-        snowDepthSum: json["snowDepthSum"],
         snowIntensityAvg: json["snowIntensityAvg"],
         snowIntensityMax: json["snowIntensityMax"],
         snowIntensityMin: json["snowIntensityMin"],
-        sunriseTime: DateTime.parse(json["sunriseTime"]),
-        sunsetTime: DateTime.parse(json["sunsetTime"]),
+        sunriseTime: json["sunriseTime"] == null ? null : DateTime.parse(json["sunriseTime"]),
+        sunsetTime: json["sunsetTime"] == null ? null : DateTime.parse(json["sunsetTime"]),
         temperatureApparentAvg: json["temperatureApparentAvg"]?.toDouble(),
         temperatureApparentMax: json["temperatureApparentMax"]?.toDouble(),
         temperatureApparentMin: json["temperatureApparentMin"]?.toDouble(),
@@ -402,9 +383,9 @@ class Values {
         windSpeedAvg: json["windSpeedAvg"]?.toDouble(),
         windSpeedMax: json["windSpeedMax"]?.toDouble(),
         windSpeedMin: json["windSpeedMin"]?.toDouble(),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "cloudBaseAvg": cloudBaseAvg,
         "cloudBaseMax": cloudBaseMax,
         "cloudBaseMin": cloudBaseMin,
@@ -435,7 +416,7 @@ class Values {
         "iceAccumulationMax": iceAccumulationMax,
         "iceAccumulationMin": iceAccumulationMin,
         "iceAccumulationSum": iceAccumulationSum,
-        "moonriseTime": moonriseTime!.toIso8601String(),
+        "moonriseTime": moonriseTime?.toIso8601String(),
         "moonsetTime": moonsetTime?.toIso8601String(),
         "precipitationProbabilityAvg": precipitationProbabilityAvg,
         "precipitationProbabilityMax": precipitationProbabilityMax,
@@ -471,15 +452,11 @@ class Values {
         "snowAccumulationMax": snowAccumulationMax,
         "snowAccumulationMin": snowAccumulationMin,
         "snowAccumulationSum": snowAccumulationSum,
-        "snowDepthAvg": snowDepthAvg,
-        "snowDepthMax": snowDepthMax,
-        "snowDepthMin": snowDepthMin,
-        "snowDepthSum": snowDepthSum,
         "snowIntensityAvg": snowIntensityAvg,
         "snowIntensityMax": snowIntensityMax,
         "snowIntensityMin": snowIntensityMin,
-        "sunriseTime": sunriseTime!.toIso8601String(),
-        "sunsetTime": sunsetTime!.toIso8601String(),
+        "sunriseTime": sunriseTime?.toIso8601String(),
+        "sunsetTime": sunsetTime?.toIso8601String(),
         "temperatureApparentAvg": temperatureApparentAvg,
         "temperatureApparentMax": temperatureApparentMax,
         "temperatureApparentMin": temperatureApparentMin,
@@ -504,27 +481,45 @@ class Values {
         "windSpeedAvg": windSpeedAvg,
         "windSpeedMax": windSpeedMax,
         "windSpeedMin": windSpeedMin,
-      };
+    };
 }
 
 class Hourly {
-  DateTime time;
-  Map<String, double?> values;
+    DateTime? time;
+    Map<String, double?>? values;
 
-  Hourly({
-    required this.time,
-    required this.values,
-  });
+    Hourly({
+        this.time,
+        this.values,
+    });
 
-  factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
-        time: DateTime.parse(json["time"]),
-        values: Map.from(json["values"])
-            .map((k, v) => MapEntry<String, double?>(k, v?.toDouble())),
-      );
+    factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
+        time: json["time"] == null ? null : DateTime.parse(json["time"]),
+        values: Map.from(json["values"]!).map((k, v) => MapEntry<String, double?>(k, v?.toDouble())),
+    );
 
-  Map<String, dynamic> toJson() => {
-        "time": time.toIso8601String(),
-        "values":
-            Map.from(values).map((k, v) => MapEntry<String, dynamic>(k, v)),
-      };
+    Map<String, dynamic> toJson() => {
+        "time": time?.toIso8601String(),
+        "values": Map.from(values!).map((k, v) => MapEntry<String, dynamic>(k, v)),
+    };
+}
+
+class Minutely {
+    DateTime? time;
+    Map<String, double>? values;
+
+    Minutely({
+        this.time,
+        this.values,
+    });
+
+    factory Minutely.fromJson(Map<String, dynamic> json) => Minutely(
+        time: json["time"] == null ? null : DateTime.parse(json["time"]),
+        values: Map.from(json["values"]!).map((k, v) => MapEntry<String, double>(k, v?.toDouble())),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "time": time?.toIso8601String(),
+        "values": Map.from(values!).map((k, v) => MapEntry<String, dynamic>(k, v)),
+    };
 }

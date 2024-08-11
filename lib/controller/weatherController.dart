@@ -341,6 +341,8 @@ class WeatherController extends GetxController {
       print(long);
       address.value = value!.regionName!;
       print(lat);
+      print(
+          "https://api.tomorrow.io/v4/weather/forecast?location=${lat},$long&apikey=0t6yD11YYCxvR7F5AugKVAKqDTk6bqCw");
       http
           .get(
         Uri.parse(
@@ -348,16 +350,17 @@ class WeatherController extends GetxController {
       )
           .then((value) {
         // print(value.body);
+        print(value.body);
         Weather weather = weatherFromJson(value.body);
-        dailyList.value = weather.timelines.daily;
-        minutelyList.value = weather.timelines.minutely;
-        hourlyList.value = weather.timelines.hourly;
+        dailyList.value = weather.timelines!.daily ?? [];
+        minutelyList.value = weather.timelines!.minutely ?? [];
+        hourlyList.value = weather.timelines!.hourly ?? [];
 
         update();
         for (var i = 0; i < hourlyList.length; i++) {
           Hourly h = hourlyList[i];
           print(h.time);
-          if (h.time.hour == DateTime.now().hour) {
+          if (h.time!.hour == DateTime.now().hour) {
             current = h;
             update();
             break;
